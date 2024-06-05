@@ -7,4 +7,9 @@
 # **/ssh/config
 # **/ssh/known_hosts
 
+/certs/*
+!/certs/.gitkeep
+/src/*
+!/src/.gitkeep
+
 # End of https://www.toptal.com/developers/gitignore/api/ssh
