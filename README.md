@@ -9,13 +9,15 @@
 * WORDMOVEでサーバーと同期※
 * mailcatcherでwordpressのメールをテスト
 
-※WORDMOVEはテンプレートのみ利用しています。ここでは構築方法のみを案内しています。利用方法等は公式ドキュメントをご確認ください。
+※WORDMOVEは構築方法のみを案内しています。利用方法等は公式ドキュメントをご確認ください。作者はテンプレートのアップロードのみで利用しています。
 
- ## 前提条件
+ ## 利用条件
 
 MacOS用の環境用です。
+
+ローカルホストを任意のホスト名で利用したい場合は、hostsファイルへの設定が必要です。
+
 wordmoveを利用する場合はsshで秘密鍵を利用した接続を想定しています。サーバーとのssh接続および、ローカルのssh/configへの設定をしているものと想定しています。
-またローカルホストを任意のホスト名で利用したい場合は、hostsファイルへの設定が必要です。
 
 ### docker & docker-compose
 
@@ -31,11 +33,9 @@ wordmoveを利用する場合はsshで秘密鍵を利用した接続を想定し
 
 ## 利用方法
 
-wordpressのみ->Aまで設定し、Cのビルド
-wordmove利用->A+Bまで設定し、Cのビルド
-mailcatcher->wordpress立ち上げ後に設定
+wordpressのみ->Aまで設定します。wordmove利用->A+Bまで設定します。mailcatcher->wordpress立ち上げ後に設定します
 
-# Aパート
+# Aパート Wordpress
 
 ### A-1 リポジトリをクローン
 
@@ -47,7 +47,7 @@ mailcatcher->wordpress立ち上げ後に設定
 
 ### A-2 証明書の準備
 
-最初にSSL用の証明書を作成します。
+最初にSSL用の証明書を作成します。certsフォルダでmkcertを利用し、証明書を作成します。
 
 ```
 cd certs
@@ -55,7 +55,7 @@ cd certs
 mkcert localhost 127.0.0.1 local-wp.proto
 ```
 
-certsフォルダ内に証明書が作成されます。
+certsフォルダ内に証明書が作成されます。下記のようになれば成功です。
 
 ```
 Created a new certificate valid for the following names 📜
@@ -68,7 +68,7 @@ The certificate is at "./localhost+2.pem" and the key at "./localhost+2-key.pem"
 It will expire on 5 September 2026 🗓
 ```
 
-.envファイルに設定を追加します。
+localhost+2.pemとlocalhost+2-key.pemが作成されたので、.envファイルに設定を追加します。
 
 ```
 # -------------------------------------------
@@ -84,9 +84,9 @@ TIMEZONE=Asia/Tokyo
 CERT_NAME=localhost+2
 ```
 
-wordpressのみの場合は、Cのビルドに進んでください。wordmoveはBも続けて設定します。
+wordpressのみの場合は、Bは不要なので、Cのビルドに進んでください。wordmoveはBも続けて設定します。
 
-# Bパート
+# Bパート WORDMOVE
 
 ### B-1 wordmoveの.env設定
 
