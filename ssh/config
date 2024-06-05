@@ -1,0 +1,12 @@
+Host ****
+  HostName 0.0.0.0
+  Port *****
+  User *****
+  IdentityFile ~/.ssh/id_rsa
+  TCPKeepAlive yes
+  IdentitiesOnly yes
+
+Host *
+  IgnoreUnknown UseKeychain,AddKeysToAgent
+  AddKeysToAgent yes
+  UseKeychain yes

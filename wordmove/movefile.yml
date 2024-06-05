@@ -1,0 +1,152 @@
+global:
+  sql_adapter: wpcli
+
+local:
+  vhost: "<%= ENV['LOCAL_VHOST'] %>"
+  wordpress_path: /html # use an absolute path here
+
+  database:
+    name: wordpress
+    user: wordpress
+    password: "wordpress" # could be blank, so always use quotes around
+    host: "<%= ENV['WORDPRESS_DB_HOST'] %>"
+    mysqldump_options: "--default-character-set=utf8 --no-tablespaces"
+
+staging:
+  vhost: "<%= ENV['STAGING_VHOST'] %>"
+  wordpress_path: "<%= ENV['STAGING_WORDPRESS_PATH'] %>" # use an absolute path here
+
+  database:
+    name: "<%= ENV['STAGING_DB_NAME'] %>"
+    user: "<%= ENV['STAGING_DB_USER'] %>"
+    password: "<%= ENV['STAGING_DB_PASSWORD'] %>"
+    # host: "<%= ENV['STAGING_DB_HOST'] %>"
+    host: "<%= ENV['STAGING_SSH_HOST'] %>"
+    charset: "utf8"
+    mysqldump_options: "--default-character-set=utf8 -no-tablespace"
+    # ssh:
+    #   host: "<%= ENV['STAGING_SSH_HOST'] %>"
+    #   user: "<%= ENV['STAGING_SSH_USER'] %>"
+    #   # key: "~/.ssh/id_aegis"
+    #   port: <%= ENV['STAGING_SSH_PORT'] %>
+
+  exclude:
+    - ".git/"
+    - ".gitignore"
+    - ".gitmodules"
+    - ".env"
+    - "node_modules/"
+    - "bin/"
+    - "tmp/*"
+    - "Gemfile*"
+    - "Movefile"
+    - "movefile"
+    - "movefile.yml"
+    - "movefile.yaml"
+    - "wp-config.php"
+    - "wp-content/*.sql.gz"
+    - "*.orig"
+    - ".DS_Store"
+
+  ssh:
+    host: "<%= ENV['STAGING_SSH_HOST'] %>"
+    user: "<%= ENV['STAGING_SSH_USER'] %>"
+    # password: password # password is optional, will use public keys if available.
+    port: <%= ENV['STAGING_SSH_PORT'] %> # Port is optional
+    # rsync_options: '--verbose --rsync-path="sudo /usr/bin/rsync"' # Additional rsync options, optional
+
+production:
+  vhost: "<%= ENV['PRODUCTION_VHOST'] %>"
+  wordpress_path: "<%= ENV['PRODUCTION_WORDPRESS_PATH'] %>" # use an absolute path here
+
+  database:
+    name: "<%= ENV['PRODUCTION_DB_NAME'] %>"
+    user: "<%= ENV['PRODUCTION_DB_USER'] %>"
+    password: "<%= ENV['PRODUCTION_DB_PASSWORD'] %>"
+    host: "<%= ENV['PRODUCTION_DB_HOST'] %>"
+    mysqldump_options: "--default-character-set=utf8"
+    # port: 3308 # Use just in case you have exotic server config
+    # mysqldump_options: '--max_allowed_packet=1G' # Only available if using SSH
+    # mysql_options: '--protocol=TCP' # mysql command is used to import db
+
+  exclude:
+    - ".git/"
+    - ".gitignore"
+    - ".gitmodules"
+    - ".env"
+    - "node_modules/"
+    - "bin/"
+    - "tmp/*"
+    - "Gemfile*"
+    - "Movefile"
+    - "movefile"
+    - "movefile.yml"
+    - "movefile.yaml"
+    - "wp-config.php"
+    - "wp-content/*.sql.gz"
+    - "*.orig"
+    - ".DS_Store"
+
+  # paths: # you can customize wordpress internal paths
+  #   wp_content: wp-content
+  #   uploads: wp-content/uploads
+  #   plugins: wp-content/plugins
+  #   mu_plugins: wp-content/mu-plugins
+  #   themes: wp-content/themes
+  #   languages: wp-content/languages
+
+  ssh:
+    host: "<%= ENV['PRODUCTION_SSH_HOST'] %>"
+    user: "<%= ENV['PRODUCTION_SSH_USER'] %>"
+    #   password: password # password is optional, will use public keys if available.
+    port: <%= ENV['PRODUCTION_SSH_PORT'] %> # Port is optional
+    rsync_options: '--verbose --rsync-path="sudo /usr/bin/rsync"' # Additional rsync options, optional
+#   gateway: # Gateway is optional
+#     host: host
+#     user: user
+#     password: password # password is optional, will use public keys if available.
+
+# ftp:
+#   user: user
+#   password: password
+#   host: host
+#   passive: true
+#   port: 21 # Port is optional
+#   scheme: ftps # default `ftp`. alternative `sftp`
+
+# hooks: # Remote hooks won't work with FTP
+#   push:
+#     before:
+#       - command: 'echo "do something"'
+#         where: local
+#         raise: false # raise is true by default
+#     after:
+#       - command: 'echo "do something"'
+#         where: remote
+#   pull:
+#     before:
+#       - command: 'echo "do something"'
+#         where: local
+#         raise: false
+#     after:
+#       - command: 'echo "do something"'
+#         where: remote
+#
+# forbid:
+#   push:
+#     db: false
+#     plugins: false
+#     themes: false
+#     languages: false
+#     uploads: false
+#     mu-plugins: false
+#   pull:
+#     db: false
+#     plugins: false
+#     themes: false
+#     languages: false
+#     uploads: false
+#     mu-plugins: false
+
+# staging: # multiple environments can be specified
+#   [...]

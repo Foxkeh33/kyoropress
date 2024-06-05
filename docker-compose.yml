@@ -1,0 +1,82 @@
+version: '3'
+
+services:
+
+  mariadb:
+    container_name: ${PROJECT_NAME}_db
+    image: mariadb:10.6.4-focal
+    command: '--default-authentication-plugin=mysql_native_password'
+    expose:
+      - 3306
+      - 33060
+    ports:
+      - 3306:3306
+      - 33060:33060
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - TZ=${TIMEZONE}
+    restart: always
+
+  wordpress:
+    container_name: ${PROJECT_NAME}_wp
+    depends_on:
+      - mariadb
+    build: ./wordpress
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./src:/var/www/html
+      - ./certs:/etc/ssl/private
+      - ./wordpress/php.ini:/usr/local/etc/php/conf.d/php.ini
+    environment:
+      - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
+      - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+      - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
+      - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
+      - TZ=${TIMEZONE}
+      - WORDPRESS_DEBUG=1 #追記。デバッグモードON
+      - SSLCertificateFile=/etc/ssl/private/${CERT_NAME}.pem
+      - SSLCertificateKeyFile=/etc/ssl/private/${CERT_NAME}-key.pem
+      - WORDPRESS_SMTP_HOST=mailcatcher
+      - WORDPRESS_SMTP_PORT=1025
+    networks:
+      default:
+        aliases:
+          - ${PROJECT_NAME}.${SUFFIX}
+          # - ${PROJECT_NAME}_2.${SUFFIX} # マルチサイト用
+          # - ${PROJECT_NAME}_3.${SUFFIX}
+          # - ${PROJECT_NAME}_4.${SUFFIX}
+
+  wordmove:
+    build: ./wordmove
+    container_name: ${PROJECT_NAME}_wordmove
+    tty: true
+    depends_on:
+      - wordpress
+    env_file: .env
+    volumes:
+      - ./src:/html
+      - ./wordmove:/root/wordmove
+      - ./ssh:/root/.ssh
+      - "/run/host-services/ssh-auth.sock:/tmp/ssh-agent.sock"
+    environment:
+      SSH_AUTH_SOCK: "/tmp/ssh-agent.sock"
+
+  mailcatcher:
+    image: schickling/mailcatcher
+    container_name: ${PROJECT_NAME}_mailcatcher
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    networks:
+      - default
+
+volumes:
+    db_data:
