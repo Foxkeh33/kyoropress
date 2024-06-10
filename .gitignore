@@ -2,10 +2,10 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=ssh
 
 ### SSH ###
-# **/ssh/id_*
-# **/ssh/*_id_*
-# **/ssh/config
-# **/ssh/known_hosts
+**/ssh/id_*
+**/ssh/*_id_*
+**/ssh/config
+**/ssh/known_hosts
 
 /certs/*
 !/certs/.gitkeep
