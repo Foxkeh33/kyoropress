@@ -20,15 +20,9 @@ staging:
     name: "<%= ENV['STAGING_DB_NAME'] %>"
     user: "<%= ENV['STAGING_DB_USER'] %>"
     password: "<%= ENV['STAGING_DB_PASSWORD'] %>"
-    # host: "<%= ENV['STAGING_DB_HOST'] %>"
-    host: "<%= ENV['STAGING_SSH_HOST'] %>"
+    host: "<%= ENV['STAGING_DB_HOST'] %>"
     charset: "utf8"
-    mysqldump_options: "--default-character-set=utf8 -no-tablespace"
-    # ssh:
-    #   host: "<%= ENV['STAGING_SSH_HOST'] %>"
-    #   user: "<%= ENV['STAGING_SSH_USER'] %>"
-    #   # key: "~/.ssh/id_aegis"
-    #   port: <%= ENV['STAGING_SSH_PORT'] %>
+    mysqldump_options: "--default-character-set=utf8"
 
   exclude:
     - ".git/"
@@ -49,43 +43,44 @@ staging:
     - ".DS_Store"
 
   ssh:
-    host: "<%= ENV['STAGING_SSH_HOST'] %>"
-    user: "<%= ENV['STAGING_SSH_USER'] %>"
+    host: "<%= ENV['CONFIG_HOST'] %>"
+    # host: "<%= ENV['STAGING_SSH_HOST'] %>"
+    # user: "<%= ENV['STAGING_SSH_USER'] %>"
     # password: password # password is optional, will use public keys if available.
-    port: <%= ENV['STAGING_SSH_PORT'] %> # Port is optional
+    # port: <%= ENV['STAGING_SSH_PORT'] %> # Port is optional
     # rsync_options: '--verbose --rsync-path="sudo /usr/bin/rsync"' # Additional rsync options, optional
 
-production:
-  vhost: "<%= ENV['PRODUCTION_VHOST'] %>"
-  wordpress_path: "<%= ENV['PRODUCTION_WORDPRESS_PATH'] %>" # use an absolute path here
+# production:
+  # vhost: "<%= ENV['PRODUCTION_VHOST'] %>"
+  # wordpress_path: "<%= ENV['PRODUCTION_WORDPRESS_PATH'] %>" # use an absolute path here
 
-  database:
-    name: "<%= ENV['PRODUCTION_DB_NAME'] %>"
-    user: "<%= ENV['PRODUCTION_DB_USER'] %>"
-    password: "<%= ENV['PRODUCTION_DB_PASSWORD'] %>"
-    host: "<%= ENV['PRODUCTION_DB_HOST'] %>"
-    mysqldump_options: "--default-character-set=utf8"
+  # database:
+    # name: "<%= ENV['PRODUCTION_DB_NAME'] %>"
+    # user: "<%= ENV['PRODUCTION_DB_USER'] %>"
+    # password: "<%= ENV['PRODUCTION_DB_PASSWORD'] %>"
+    # host: "<%= ENV['PRODUCTION_DB_HOST'] %>"
+    # mysqldump_options: "--default-character-set=utf8"
     # port: 3308 # Use just in case you have exotic server config
     # mysqldump_options: '--max_allowed_packet=1G' # Only available if using SSH
     # mysql_options: '--protocol=TCP' # mysql command is used to import db
 
-  exclude:
-    - ".git/"
-    - ".gitignore"
-    - ".gitmodules"
-    - ".env"
-    - "node_modules/"
-    - "bin/"
-    - "tmp/*"
-    - "Gemfile*"
-    - "Movefile"
-    - "movefile"
-    - "movefile.yml"
-    - "movefile.yaml"
-    - "wp-config.php"
-    - "wp-content/*.sql.gz"
-    - "*.orig"
-    - ".DS_Store"
+  # exclude:
+  #   - ".git/"
+  #   - ".gitignore"
+  #   - ".gitmodules"
+  #   - ".env"
+  #   - "node_modules/"
+  #   - "bin/"
+  #   - "tmp/*"
+  #   - "Gemfile*"
+  #   - "Movefile"
+  #   - "movefile"
+  #   - "movefile.yml"
+  #   - "movefile.yaml"
+  #   - "wp-config.php"
+  #   - "wp-content/*.sql.gz"
+  #   - "*.orig"
+  #   - ".DS_Store"
 
   # paths: # you can customize wordpress internal paths
   #   wp_content: wp-content
@@ -95,16 +90,16 @@ production:
   #   themes: wp-content/themes
   #   languages: wp-content/languages
 
-  ssh:
-    host: "<%= ENV['PRODUCTION_SSH_HOST'] %>"
-    user: "<%= ENV['PRODUCTION_SSH_USER'] %>"
-    #   password: password # password is optional, will use public keys if available.
-    port: <%= ENV['PRODUCTION_SSH_PORT'] %> # Port is optional
-    rsync_options: '--verbose --rsync-path="sudo /usr/bin/rsync"' # Additional rsync options, optional
-#   gateway: # Gateway is optional
-#     host: host
-#     user: user
-#     password: password # password is optional, will use public keys if available.
+  # ssh:
+  #   host: "<%= ENV['PRODUCTION_SSH_HOST'] %>"
+  #   user: "<%= ENV['PRODUCTION_SSH_USER'] %>"
+  #   password: password # password is optional, will use public keys if available.
+  #   port: <%= ENV['PRODUCTION_SSH_PORT'] %> # Port is optional
+  #   rsync_options: '--verbose --rsync-path="sudo /usr/bin/rsync"' # Additional rsync options, optional
+  #   gateway: # Gateway is optional
+  #     host: host
+  #     user: user
+  #     password: password # password is optional, will use public keys if available.
 
 # ftp:
 #   user: user
@@ -147,6 +142,3 @@ production:
 #     languages: false
 #     uploads: false
 #     mu-plugins: false
-
-# staging: # multiple environments can be specified
-#   [...]

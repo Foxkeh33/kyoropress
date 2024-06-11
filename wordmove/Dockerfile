@@ -11,6 +11,10 @@ COPY mount-ssh.sh /bin/mount-ssh.sh
 RUN chmod +x /bin/mount-ssh.sh
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libssl-dev \
+    libreadline-dev \
+    zlib1g-dev \
     openssh-server \
     curl \
     rsync \
@@ -19,6 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     lsb-release \
     apt-transport-https \
     ca-certificates \
+    git \
     wget \
     vim \
     && apt-get clean \
@@ -31,7 +36,10 @@ RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
     && rm -rf /var/lib/apt/lists/*
 
 
-RUN gem install wordmove --version 5.2.1
+RUN gem install ed25519 -v "~> 1.2"
+RUN gem install bcrypt_pbkdf -v "~> 1.0"
+RUN gem install specific_install
+RUN gem specific_install https://github.com/murodon/wordmove_custom.git kusanagi
 RUN curl -o /usr/local/bin/wp -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x /usr/local/bin/wp
 

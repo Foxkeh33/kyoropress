@@ -133,6 +133,7 @@ SSH_AUTH_SOCK_APP=/run/host-services/ssh-auth.sock
 wordmoveはコンテナ内部からサーバーに接続が必要です。
 sshフォルダ内にある、configファイルに接続したいhostの情報を設定します。
 
+### CONFIGサンプル
 ```
 Host ****
   HostName 0.0.0.0
@@ -141,9 +142,19 @@ Host ****
   IdentityFile ~/.ssh/id_rsa
   TCPKeepAlive yes
   IdentitiesOnly yes
+
+Host *
+  IgnoreUnknown UseKeychain,AddKeysToAgent
+  AddKeysToAgent yes
+  UseKeychain yes
 ```
 
+
+### id_rsa
+
 sshが鍵方式の場合はsshフォルダ内のid_rsaに接続用の秘密鍵の情報をコピーしておきます。
+
+
 
 # C ビルド
 
