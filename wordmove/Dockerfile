@@ -38,6 +38,7 @@ RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 
 RUN gem install ed25519 -v "~> 1.2"
 RUN gem install bcrypt_pbkdf -v "~> 1.0"
+RUN gem install zeitwerk -v 2.6.18
 RUN gem install specific_install
 RUN gem specific_install https://github.com/murodon/wordmove_custom.git kusanagi
 RUN curl -o /usr/local/bin/wp -L https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
