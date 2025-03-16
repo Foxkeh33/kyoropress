@@ -35,7 +35,7 @@ RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-
+RUN gem install concurrent-ruby -v "1.3.4"
 RUN gem install ed25519 -v "~> 1.2"
 RUN gem install bcrypt_pbkdf -v "~> 1.0"
 RUN gem install zeitwerk -v 2.6.18
