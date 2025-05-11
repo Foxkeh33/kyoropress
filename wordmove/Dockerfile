@@ -2,7 +2,7 @@
 # Wordmove Dockerfile
 #
 # Pull base image.
-FROM ruby:2.6-slim
+FROM ruby:3.2-slim
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV WORDMOVE_WORKDIR /html
