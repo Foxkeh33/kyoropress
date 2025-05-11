@@ -2,13 +2,17 @@
 # Wordmove Dockerfile
 #
 # Pull base image.
-FROM ruby:3.2-slim
+FROM ruby:3.0-slim
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV WORDMOVE_WORKDIR /html
 
 COPY mount-ssh.sh /bin/mount-ssh.sh
 RUN chmod +x /bin/mount-ssh.sh
+
+# preload logger to avoid ActiveSupport::LoggerThreadSafeLevel error
+RUN echo "require 'logger'" > /logger_patch.rb
+ENV RUBYOPT="-rlogger"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
