@@ -63,9 +63,11 @@ services:
     env_file: .env
     volumes:
       - ./src:/html
-      - ./wordmove:/root/wordmove
-      - ./ssh:/root/.ssh
-      - "/run/host-services/ssh-auth.sock:/tmp/ssh-agent.sock"
+      #- ./wordmove:/root/wordmove
+      - ./wordmove:/home/
+      - ~/.ssh:/home/.ssh
+      #- ./ssh:/root/.ssh
+      #- "/run/host-services/ssh-auth.sock:/tmp/ssh-agent.sock"
     environment:
       SSH_AUTH_SOCK: "/tmp/ssh-agent.sock"
 
