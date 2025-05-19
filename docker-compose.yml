@@ -61,13 +61,11 @@ services:
     depends_on:
       - wordpress
     env_file: .env
+    working_dir: /home
     volumes:
       - ./src:/html
-      #- ./wordmove:/root/wordmove
       - ./wordmove:/home/
-      - ~/.ssh:/home/.ssh
-      #- ./ssh:/root/.ssh
-      #- "/run/host-services/ssh-auth.sock:/tmp/ssh-agent.sock"
+      - ~/.ssh:/home/.ssh:ro
     environment:
       SSH_AUTH_SOCK: "/tmp/ssh-agent.sock"
 
