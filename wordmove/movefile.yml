@@ -43,9 +43,10 @@ staging:
     - ".DS_Store"
 
   ssh:
-    host: "<%= ENV['CONFIG_HOST'] %>"
-    # host: "<%= ENV['STAGING_SSH_HOST'] %>"
-    # user: "<%= ENV['STAGING_SSH_USER'] %>"
+    user: "<%= ENV['STAGING_SSH_USER'] %>"    
+    host: "<%= ENV['STAGING_SSH_HOST'] %>"
+    user: "<%= ENV['STAGING_SSH_USER'] %>"
+    keys: "<%= ENV['STAGING_SSH_KEY'] %>"
     # password: password # password is optional, will use public keys if available.
     # port: <%= ENV['STAGING_SSH_PORT'] %> # Port is optional
     # rsync_options: '--verbose --rsync-path="sudo /usr/bin/rsync"' # Additional rsync options, optional
