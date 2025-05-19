@@ -1,4 +1,4 @@
-# docker-wp-local
+# kyoropress
  docker-compose settings for local wordpress development enviroment.
 
  Dockerを利用したWordpressローカル開発環境用スタックです。
