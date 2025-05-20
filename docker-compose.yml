@@ -41,7 +41,6 @@ services:
       - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
       - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
       - TZ=${TIMEZONE}
-      - WORDPRESS_DEBUG=1 #追記。デバッグモードON
       - SSLCertificateFile=/etc/ssl/private/${CERT_NAME}.pem
       - SSLCertificateKeyFile=/etc/ssl/private/${CERT_NAME}-key.pem
       - WORDPRESS_SMTP_HOST=mailcatcher
