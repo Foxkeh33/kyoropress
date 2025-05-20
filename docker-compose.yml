@@ -60,7 +60,7 @@ services:
     depends_on:
       - wordpress
     env_file: .env
-    working_dir: /home
+    working_dir: /home/
     volumes:
       - ./src:/html
       - ./wordmove:/home/
