@@ -7,9 +7,6 @@ FROM ruby:3.0-slim
 ENV DEBIAN_FRONTEND noninteractive
 ENV WORDMOVE_WORKDIR /html
 
-COPY mount-ssh.sh /bin/mount-ssh.sh
-RUN chmod +x /bin/mount-ssh.sh
-
 # preload logger to avoid ActiveSupport::LoggerThreadSafeLevel error
 RUN echo "require 'logger'" > /logger_patch.rb
 ENV RUBYOPT="-rlogger"
@@ -51,7 +48,5 @@ RUN curl -o /usr/local/bin/wp -L https://raw.githubusercontent.com/wp-cli/builds
 RUN eval "$(ssh-agent -s)"
 
 WORKDIR ${WORDMOVE_WORKDIR}
-
-ENTRYPOINT ["/bin/mount-ssh.sh"]
 
 CMD ["/bin/bash", "-l"]
