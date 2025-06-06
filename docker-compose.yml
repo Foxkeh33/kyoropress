@@ -45,13 +45,6 @@ services:
       - SSLCertificateKeyFile=/etc/ssl/private/${CERT_NAME}-key.pem
       - WORDPRESS_SMTP_HOST=mailcatcher
       - WORDPRESS_SMTP_PORT=1025
-    networks:
-      default:
-        aliases:
-          - ${PROJECT_NAME}.${SUFFIX}
-          # - ${PROJECT_NAME}_2.${SUFFIX} # マルチサイト用
-          # - ${PROJECT_NAME}_3.${SUFFIX}
-          # - ${PROJECT_NAME}_4.${SUFFIX}
 
   wordmove:
     build: ./wordmove
