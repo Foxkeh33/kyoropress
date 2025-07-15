@@ -78,13 +78,18 @@ production:
     - "wp-content/*.sql.gz"
     - "*.orig"
     - ".DS_Store"
+    - "wp-content/mu-plugins/**"
 
   ssh:
     host: "<%= ENV['PRODUCTION_SSH_HOST'] %>"
     user: "<%= ENV['PRODUCTION_SSH_USER'] %>"
+    rsync_options: "--archive --compress --verbose"  # Disable --delete
   #   password: password # password is optional, will use public keys if available.
   #   port: <%= ENV['PRODUCTION_SSH_PORT'] %> # Port is optional
   #   rsync_options: '--verbose --rsync-path="sudo /usr/bin/rsync"' # Additional rsync options, optional
+forbid:
+  push:
+    mu-plugins: true  # Prohibit pushing mu-plugins
 
 # ftp:
 #   user: user
