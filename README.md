@@ -149,59 +149,6 @@ Host *
   UseKeychain yes
 ```
 
-
-### id_rsa
-
-sshが鍵方式の場合はsshフォルダ内のid_rsaに接続用の秘密鍵の情報をコピーしておきます。
-
-
-
-# C ビルド
-
-### Dockerコンテナの起動
-
-docker-compose.ymlがある階層以下で以下のコマンドを実行します。
-
-```
-docker-compose build
-```
-
-続けて以下のコマンドを実行します。
-
-```
-docker-compose up -d
-```
-
-これでwordpressが立ち上がるので、ローカルのブラウザでアクセスして立ち上がっているか確認できます。SSLが設定されているかhttpsでアクセスしてください。
-
-```
-open https://localhost
-```
-
-### Wordpressの設定
-
-ローカルホストのままで設定しても良いのですが、複数のプロジェクトを動かす場合にローカルでドメインを分けたほうが開発しやすいです。またwordmoveなどの際にも便利です。
-
-/etc/hostsに.envで設定したローカルホストのドメインを追加します。
-
-```
-127.0.0.1  local-wp.proto
-```
-
-これでローカルホストのドメインでアクセスできるようになります。
-
-```
-open https://local-wp.proto
-```
-
-# WORDMOVEについて
-
-本番とローカルサーバーの同期に便利ですが、誤ってpush --allしてしまうと、クラッシュすることが多いので、最近はテンプレートのpushしか使ってません。DBの同期もしっかりやりたい方は、しっかりと解説されているサイトなどをご確認ください。
-
-[WordMove](https://github.com/welaika/wordmove)
-
-また鍵の管理にご注意ください。レポジトリに誤ってpushしないように。
-
 # MAILCATCHERについて
 
 docker内のwordpressでcontactフォームなどでメールの送信をテストしたい場合に、MAILCATCHERが便利です。
